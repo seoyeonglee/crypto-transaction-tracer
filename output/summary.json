@@ -1,0 +1,7 @@
+{
+  "seed_address": "SEED_WALLET",
+  "max_hops": 3,
+  "transactions_loaded": 53,
+  "traced_transactions": 9,
+  "note": "All addresses and risk labels are synthetic."
+}
