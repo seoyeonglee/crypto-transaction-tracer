@@ -1,0 +1,11 @@
+address,in_degree,out_degree,risk_distance,synthetic_label,rules,risk_score,severity
+SYNTH_MIXER,1,0,0,synthetic_mixer,DIRECT_RISK_LABEL,60,high
+SYNTH_HIGH_RISK_SERVICE,1,0,0,synthetic_high_risk_service,DIRECT_RISK_LABEL,60,high
+BRIDGE_A,1,6,2,,FAN_OUT|TWO_HOP_RISK_EXPOSURE,45,medium
+FANOUT_1,1,1,1,,ONE_HOP_RISK_EXPOSURE,40,medium
+FANOUT_2,1,1,1,,ONE_HOP_RISK_EXPOSURE,40,medium
+COLLECTOR,6,0,,,FAN_IN,20,low
+PEEL_0,0,2,,,PEEL_CHAIN,25,low
+PEEL_1,1,2,,,PEEL_CHAIN,25,low
+PEEL_2,1,2,,,PEEL_CHAIN,25,low
+PEEL_3,1,2,,,PEEL_CHAIN,25,low
