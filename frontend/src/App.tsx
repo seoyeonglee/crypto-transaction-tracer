@@ -189,7 +189,7 @@ function App() {
             opacity: 1,
           },
         },
-      ],
+      ] as any,
       layout: {
         name: "breadthfirst",
         directed: true,
