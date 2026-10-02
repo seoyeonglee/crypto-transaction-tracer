@@ -1,10 +1,29 @@
 # Crypto Transaction Tracer
 
 [![tests](https://github.com/seoyeonglee/crypto-transaction-tracer/actions/workflows/tests.yml/badge.svg)](https://github.com/seoyeonglee/crypto-transaction-tracer/actions/workflows/tests.yml)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Trace%2F%2FLab-58E6D9)](https://seoyoung-crypto-tracer.onrender.com)
+[![API Docs](https://img.shields.io/badge/API-FastAPI-009688)](https://seoyoung-crypto-tracer-api.onrender.com/docs)
+
+**[Open Live Investigation Console](https://seoyoung-crypto-tracer.onrender.com)** · **[Open Swagger API](https://seoyoung-crypto-tracer-api.onrender.com/docs)**
 
 **Interactive blockchain-investigation lab with graph tracing, explainable risk signals, and an analyst-style web console.**
 
 > All addresses, transactions, labels, and scenarios in this repository are fictional. The project does not contain real wallet data, sanctioned-address lists, customer information, or employer investigation logic.
+
+## Live investigation console
+
+[![Trace//Lab live investigation console](docs/live-console.png)](https://seoyoung-crypto-tracer.onrender.com)
+
+The deployed console is designed to feel like an analyst workstation rather than a generic portfolio dashboard:
+
+- choose a synthetic investigation case or seed address;
+- switch outbound / inbound / bidirectional tracing;
+- change hop depth and rebuild the graph;
+- inspect addresses, transaction volume, proximity, and explainable risk signals;
+- follow exposure paths to synthetic labelled services;
+- review the exact transactions supporting the current graph.
+
+The UI talks to the same FastAPI/NetworkX analysis layer that powers the repository's tracing logic. Render free-tier services may cold-start after inactivity.
 
 ## What this project demonstrates
 
