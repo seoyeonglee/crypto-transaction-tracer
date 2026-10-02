@@ -2,113 +2,76 @@
 
 [![tests](https://github.com/seoyeonglee/crypto-transaction-tracer/actions/workflows/tests.yml/badge.svg)](https://github.com/seoyeonglee/crypto-transaction-tracer/actions/workflows/tests.yml)
 
-A synthetic blockchain-investigation project that models transactions as a directed graph, traces flows from a seed address, and adds explainable structural and proximity-based risk signals.
+**Interactive blockchain-investigation lab with graph tracing, explainable risk signals, and an analyst-style web console.**
 
 > All addresses, transactions, labels, and scenarios in this repository are fictional. The project does not contain real wallet data, sanctioned-address lists, customer information, or employer investigation logic.
 
-## What it does
+## What this project demonstrates
 
-- builds a directed multi-graph from transaction records
-- traces outgoing transactions from a seed address by hop distance
-- detects fan-out and fan-in patterns
-- identifies a simplified peel-chain structure
-- measures graph proximity to synthetic high-risk service labels
-- produces address-level risk scores and traceable transaction outputs
+- React + TypeScript investigation console
+- interactive transaction-graph visualization with Cytoscape.js
+- FastAPI backend built on the existing Python/NetworkX tracing engine
+- outbound, inbound, and bidirectional hop tracing
+- explainable fan-in, fan-out, peel-chain, and risk-proximity signals
+- analyst-facing evidence panels rather than opaque scoring
+- synthetic case presets for exposure chains, peel chains, and collectors
+- Docker Compose local full-stack execution
+- backend tests + frontend production build in GitHub Actions
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    A[Transaction Ledger] --> B[Directed Graph]
-    B --> C[Hop Trace]
-    B --> D[Structural Patterns]
-    B --> E[Risk Proximity]
-    C --> F[Traced Transactions]
-    D --> G[Address Risk]
-    E --> G
+    UI[React / TypeScript Console] --> API[FastAPI]
+    API --> G[NetworkX MultiDiGraph]
+    API --> R[Explainable Risk Engine]
+    D[Synthetic BTC Transactions] --> G
+    G --> T[Hop Trace]
+    G --> R
+    T --> UI
+    R --> UI
 ```
 
-## Example investigation
+## Live-demo interaction model
 
-The checked-in sample contains a fictional flow:
+The UI is deliberately styled like an investigation product rather than a generic dashboard:
 
-```text
-SEED_WALLET
-   |
-   v
-BRIDGE_A
-   |----> FANOUT_1 ----> SYNTH_MIXER
-   |----> FANOUT_2 ----> SYNTH_HIGH_RISK_SERVICE
-   |----> FANOUT_3
-   |----> FANOUT_4
-   |----> FANOUT_5
-   '----> FANOUT_6
-```
+1. pick an investigation case or seed address;
+2. choose hop depth and trace direction;
+3. reconstruct the transaction graph;
+4. select an address to inspect its score, signals, and connected transactions;
+5. review the shortest visible exposure path to a synthetic labelled service;
+6. inspect the evidence table supporting the graph.
 
-The system flags `BRIDGE_A` for fan-out plus two-hop proximity, while the two intermediate addresses receive one-hop exposure signals.
+## Existing tracing engine
 
-## Project structure
-
-```text
-crypto-transaction-tracer/
-├── data/
-│   ├── README.md
-│   └── sample_transactions.csv
-├── docs/
-│   ├── architecture.md
-│   └── methodology.md
-├── output/
-│   ├── address_risk.csv
-│   ├── traced_transactions.csv
-│   └── summary.json
-├── src/
-│   ├── generate_data.py
-│   ├── graph.py
-│   ├── patterns.py
-│   └── run_trace.py
-├── tests/
-├── requirements.txt
-└── README.md
-```
-
-## Run it
-
-Windows:
-
-```powershell
-py -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe src\generate_data.py
-.\.venv\Scripts\python.exe src\run_trace.py --seed-address SEED_WALLET --max-hops 3
-.\.venv\Scripts\python.exe -m pytest -q
-```
-
-macOS/Linux:
+The original CLI and reproducible outputs remain intact:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
 python src/generate_data.py
 python src/run_trace.py --seed-address SEED_WALLET --max-hops 3
-python -m pytest -q
+pytest -q
 ```
 
-## Outputs
+## Run the live app locally
 
-- `output/traced_transactions.csv` — transactions reachable from the selected seed
-- `output/address_risk.csv` — graph structure, synthetic labels, triggered signals, risk score, and severity
-- `output/summary.json` — run-level investigation summary
+```bash
+docker compose up --build
+```
+
+Then open:
+
+- Frontend: `http://localhost:5173`
+- API docs: `http://localhost:8000/docs`
 
 ## Design principles
 
-- **Synthetic by design:** no real operational targets
-- **Explainable:** every score is tied to visible graph signals
-- **Investigation-oriented:** hop tracing and structure are kept separate from attribution
-- **Reproducible:** deterministic sample generation and automated tests
-
-See [`docs/methodology.md`](docs/methodology.md) for caveats and production considerations.
+- **Synthetic by design** — no real operational targets
+- **Explainable** — every score is tied to visible graph signals
+- **Investigation-oriented** — patterns are leads, not attribution
+- **Reproducible** — deterministic sample generation and automated tests
+- **Product-shaped** — browser UI, API boundary, interaction states, and analyst evidence flow
 
 ## Tech
 
-Python · Pandas · NetworkX · Blockchain Analytics · Graph Analysis · Risk Investigation
+React · TypeScript · Cytoscape.js · FastAPI · Python · Pandas · NetworkX · Docker · GitHub Actions
